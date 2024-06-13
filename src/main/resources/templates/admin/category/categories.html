@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments_Admin/fragment :: page_head('Categories Page')"></head>
+<body>
+<!--    nav bar-->
+<div th:replace="fragments_Admin/fragment :: navbar"></div>
+
+<div class="container-fluid">
+    <h2>Manager Category</h2>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <a type="button" class="btn btn-outline-primary mt-3"
+           th:href="@{/admin/categories/create}">
+            <i class="fa-regular fa-plus"></i>
+            Create Category
+        </a>
+        &nbsp;&nbsp;
+        <a type="button" class="btn btn-outline-primary mt-3"
+           th:href="@{/admin/categories/excel}">
+            <i class="fa-regular fa-file-excel"></i>
+            Export Excel
+        </a>
+        &nbsp;&nbsp;
+        <a type="button" class="btn btn-outline-primary mt-3"
+           th:href="@{/admin/categories/pdf}">
+            <i class="fa-regular fa-file-pdf"></i>
+            Export PDF
+        </a>
+    </div>
+
+    <div>
+        <form action="#" class="form-inline m-3" style="display: flex; align-items: center; width: 30%;">
+            <input type="hidden" name="sortField" >
+            Filter:&nbsp;
+            <input type="search" name="keyword" class="form-control" required style="flex: 1; width: 50px;" />
+            &nbsp;&nbsp;
+            <input type="submit" value="Search" class="btn btn-primary">
+            &nbsp;&nbsp;
+            <input type="button" value="Clear" class="btn btn-secondary" />
+        </form>
+    </div>
+
+    <div class="tab-pane fade show active mt-3" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <table class="table table-hover w-100 text-center">
+            <thead class="bg-dark text-white">
+            <tr>
+                <th>ID</th>
+                <th>Name Category</th>
+                <th>Enabled</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${categories}">
+                <td th:text="${item.categoryID}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.enabled}"></td>
+                <td>
+                    <a th:href="@{/admin/categories/edit/{id}(id=${item.categoryID})}" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-pen-to-square fa-2xl"></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a th:href="@{/admin/categories/delete/{id}(id=${item.categoryID})}" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash fa-2xl"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!--footer-->
+<div th:replace="fragments_Admin/fragment :: footer"></div>
+</body>
+</html>

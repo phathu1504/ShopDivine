@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header">
+    <div class="row mt-4">
+        <div class="list-group col-sm-2">
+            <a th:href="@{'/danhmucsp/1'}" class="list-group-item align-items-center"><i class="fa-solid fa-gamepad"></i>
+                Giải
+                trí</a>
+            <a th:href="@{'/danhmucsp/3'}" class="list-group-item align-items-center"><i class="fa-solid fa-briefcase"></i> Làm
+                việc</a>
+            <a th:href="@{'/danhmucsp/2'}" class="list-group-item align-items-center"><i class="fa-solid fa-graduation-cap"></i> Học
+                tập</a>
+            <a th:href="@{'/danhmucsp/5'}" class="list-group-item align-items-center"><i class="fa-brands fa-steam"></i> Game Steam</a>
+            <a th:href="@{'#!'}" class="list-group-item align-items-center"><i class="fa-brands fa-windows"></i> Window,
+                Office</a>
+            <a th:href="@{'#!'}" class="list-group-item align-items-center"><i class="fa-brands fa-xbox"></i> Xbox</a>
+            <a th:href="@{'#!'}" class="list-group-item align-items-center"><i class="fa-brands fa-google-play"></i> Google
+                Play</a>
+            <a th:href="@{'#!'}" class="list-group-item align-items-center"><i class="fa-brands fa-itunes"></i> Itunes</a>
+            <a th:href="@{'#!'}" class="list-group-item align-items-center"><i class="fa-solid fa-wifi"></i> Gói Data</a>
+        </div>
+        <div id="carouselExampleIndicators" class="carousel slide col-sm-7" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                        aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                        aria-label="Slide 5"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"
+                        aria-label="Slide 6"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a th:href="@{'#'}"><img th:src="@{/img/slide1.png}" class="d-block w-100 rounded" alt="..."></a>
+                </div>
+                <div class="carousel-item">
+                    <a th:href="@{'#'}"><img th:src="@{/img/slide2.jpg}" class="d-block w-100 rounded" alt="..."></a>
+                </div>
+                <div class="carousel-item">
+                    <a th:href="@{'#'}"><img th:src="@{/img/slide3.png}" class="d-block w-100 rounded" alt="..."></a>
+                </div>
+                <div class="carousel-item">
+                    <a th:href="@{'#'}"><img th:src="@{/img/slide4.png}" class="d-block w-100 rounded" alt="..."></a>
+                </div>
+                <div class="carousel-item">
+                    <a th:href="@{'#'}"><img th:src="@{/img/slide5.png}" class="d-block w-100 rounded" alt="..."></a>
+                </div>
+                <div class="carousel-item">
+                    <a th:href="@{'#'}"><img th:src="@{/img/slide6.png}" class="d-block w-100 rounded" alt="..."></a>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="col-sm-3">
+            <a href="#"><img th:src="@{/img/img1.png}" class="d-block w-100 rounded "></a>
+            <a href="#"><img th:src="@{/img/img2.png}" class="d-block w-100 rounded mt-5"></a>
+        </div>
+    </div>
+    <div class="row mt-2 ">
+        <div class="col-sm-3">
+            <a href="#"><img th:src="@{/img/img3.png}" class="d-block w-100 rounded"></a>
+        </div>
+        <div class="col-sm-3">
+            <a href="#"><img th:src="@{/img/img4.png}" class="d-block w-100 rounded"></a>
+        </div>
+        <div class="col-sm-3">
+            <a href="#"><img th:src="@{/img/img5.png}" class="d-block w-100 rounded"></a>
+        </div>
+        <div class="col-sm-3">
+            <a href="#"><img th:src="@{/img/img6.png}" class="d-block w-100 rounded"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

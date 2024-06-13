@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments_Admin/fragment :: page_head('Create User')"></head>
+<body>
+<!--    nav bar-->
+<div th:replace="fragments_Admin/fragment :: navbar"></div>
+
+<div>
+    <h2>Manager User | [[${message}]]</h2>
+</div>
+
+<div>
+
+    <form th:action="@{/admin/user/save}" method="post" th:object="${staff}" style="max-width:700px; margin: 0 auto" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{staffID}">
+        <div class="border border-secondary rounded p-3">
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">Email:</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" th:field="*{email}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">FullName:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{fullName}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">Password:</label>
+                <div class="col-sm-8">
+                    <div th:if="${staff.staffID == null}">
+                        <input type="password" class="form-control" th:field="*{password}">
+                        <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                    </div>
+                    <input th:if="${staff.staffID != null}" type="password" class="form-control" th:field="*{password}">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">gender:</label>
+                <div class="col-sm-8">
+                    Male:<input type="radio" class="" th:field="*{gender}" th:value="true">
+                    &nbsp;
+                    Female:<input type="radio" class="" th:field="*{gender}" th:value="false">
+                    <div class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">Number Phone:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{phone}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">Enabled:</label>
+                <div class="col-sm-8">
+                    <input type="checkbox" th:field="*{enabled}">
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <label class="col-sm-4 col-form-label">Address:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{address}">
+                    <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+                </div>
+            </div>
+            <div class="form-group row mt-2">
+                <input type="hidden" th:field="*{imageName}">
+                <label for="image" class="col-sm-4 col-form-label">Image</label>
+                <div class="col-sm-8">
+                    <input id="image" type="file" class="form-control" name="image">
+                </div>
+            </div>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Save" class="btn btn-primary m-3">
+                <button class="btn btn-secondary" id="buttonCancel">Cancel</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<!--footer-->
+<div th:replace="fragments_Admin/fragment :: footer"></div>
+</body>
+</html>

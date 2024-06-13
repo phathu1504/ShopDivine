@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments_Admin/fragment :: page_head('Customers Page')"></head>
+<body>
+<!--    nav bar-->
+<div th:replace="fragments_Admin/fragment :: navbar"></div>
+
+<div class="container-fluid">
+    <h2>Manager Customer</h2>
+
+    <div>
+        <a type="button" class="btn btn-outline-primary mt-3" th:href="@{/admin/user/excel}">
+            <i class="fa-regular fa-file-excel"></i>
+            Export Excel
+        </a>
+        &nbsp;&nbsp;
+        <a type="button" class="btn btn-outline-primary mt-3" th:href="@{/admin/user/pdf}">
+            <i class="fa-regular fa-file-pdf"></i>
+            Export PDF
+        </a>
+    </div>
+
+    <div>
+        <form action="#" class="form-inline m-3" style="display: flex; align-items: center; width: 30%;" th:action="@{/admin/search}" method="get">
+            <input type="hidden" name="sortField">
+            Filter:&nbsp;
+            <input type="search" name="keyword" class="form-control" required style="flex: 1; width: 50px;" th:value="${keyword}">
+            &nbsp;&nbsp;
+            <input type="submit" value="Search" class="btn btn-primary">
+            &nbsp;&nbsp;
+            <input type="button" value="Clear" class="btn btn-secondary" onclick="window.location.href='/admin/page';">
+        </form>
+    </div>
+
+    <div class="tab-pane fade show active mt-3" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <table class="table table-hover w-100 text-center">
+            <thead class="bg-dark text-white">
+            <tr>
+                <th>ID</th>
+                <th>FullName</th>
+                <th>E-mail</th>
+                <th>Password</th>
+                <th>Phone</th>
+                <th>Enabled</th>
+                <th>Create Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customerPage.content}">
+                <td th:text="${customer.customerID}"></td>
+                <td th:text="${customer.fullName}"></td>
+                <td th:text="${customer.email}"></td>
+                <td th:text="${customer.password}"></td>
+                <td th:text="${customer.phone}"></td>
+                <td th:text="${customer.enabled}"></td>
+                <td th:text="${customer.createDate}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/page(page=0, size=${customerPage.size}, keyword=${keyword})}">&laquo;</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, customerPage.totalPages - 1)}" th:classappend="${currentPage == i} ? 'active'">
+                <a class="page-link" th:href="@{/admin/page(page=${i}, size=${customerPage.size}, keyword=${keyword})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == customerPage.totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/page(page=${customerPage.totalPages - 1}, size=${customerPage.size}, keyword=${keyword})}">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!--footer-->
+<div th:replace="fragments_Admin/fragment :: footer"></div>
+</body>
+</html>

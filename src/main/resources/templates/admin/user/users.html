@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments_Admin/fragment :: page_head('User Page')"></head>
+<body>
+<!--    nav bar-->
+<div th:replace="fragments_Admin/fragment :: navbar"></div>
+
+<div class="container-fluid">
+    <h2>Manager User</h2>
+
+    <div th:if="${message != null}" class="alert alert-success text-center">
+        [[${message}]]
+    </div>
+
+    <div>
+        <a type="button" class="btn btn-outline-primary mt-3" th:href="@{/admin/user/create}">
+            <i class="fa-regular fa-plus"></i>
+            Create User
+        </a>
+        &nbsp;&nbsp;
+        <a type="button" class="btn btn-outline-primary mt-3" th:href="@{/admin/user/export/excel}">
+            <i class="fa-regular fa-file-excel"></i>
+            Export Excel
+        </a>
+        &nbsp;&nbsp;
+        <a type="button" class="btn btn-outline-primary mt-3" th:href="@{/admin/user/export/pdf}">
+            <i class="fa-regular fa-file-pdf"></i>
+            Export PDF
+        </a>
+    </div>
+
+    <div>
+        <form th:action="@{/admin/user/page/1}" class="form-inline m-3"
+              style="display: flex; align-items: center; width: 30%;">
+            <input type="hidden" name="sortField" th:value="${sortField}">
+            <input type="hidden" name="sortDir" th:value="${sortDir}">
+            Filter:&nbsp;
+            <input type="search" name="keyword" class="form-control" required style="flex: 1; width: 50px;">
+            &nbsp;&nbsp;
+            <input type="submit" value="Search" class="btn btn-primary">
+            &nbsp;&nbsp;
+            <input type="button" value="Clear" class="btn btn-secondary"/>
+        </form>
+    </div>
+
+    <div class="tab-pane fade show active mt-3" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        <table class="table table-hover w-100 text-center">
+            <thead class="bg-dark text-white">
+            <tr>
+                <th>
+                    <a th:href="@{${'/admin/user/page/' + currentPage + '?sortField=staffID&sortDir=' + (sortField != 'staffID' ? sortDir : reverseSortDir) + (keyword != null ? '&keyword=' + keyword : '')}}">
+                        ID
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{${'/admin/user/page/' + currentPage + '?sortField=fullName&sortDir=' + (sortField != 'fullName' ? sortDir : reverseSortDir) + (keyword != null ? '&keyword=' + keyword : '')}}">
+                        Fullname
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{${'/admin/user/page/' + currentPage + '?sortField=email&sortDir=' + (sortField != 'email' ? sortDir : reverseSortDir) + (keyword != null ? '&keyword=' + keyword : '')}}">
+                        E-mail
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{${'/admin/user/page/' + currentPage + '?sortField=gender&sortDir=' + (sortField != 'gender' ? sortDir : reverseSortDir) + (keyword != null ? '&keyword=' + keyword : '')}}">
+                        Gender
+                    </a>
+                </th>
+                <th>Image</th>
+                <th>Phone</th>
+                <th>
+                    <a th:href="@{${'/admin/user/page/' + currentPage + '?sortField=enabled&sortDir=' + (sortField != 'enabled' ? sortDir : reverseSortDir) + (keyword != null ? '&keyword=' + keyword : '')}}">
+                        Enabled
+                    </a>
+                </th>
+                <th>Address</th>
+                <th>Create Date</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${staffList}">
+                <td>[[${item.staffID}]]</td>
+                <td>[[${item.fullName}]]</td>
+                <td>[[${item.email}]]</td>
+                <td>[[${item.gender} ? 'Male' : 'Female']]</td>
+                <td>
+                    <div th:if="${item.imageName != null}">
+                        <img width="80px" th:src="@{${item.getPhotosImagePath()}}" alt="">
+                    </div>
+                    <span th:if="${item.imageName == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+                </td>
+                <td>[[${item.phone}]]</td>
+                <td>[[${item.enabled ? 'da mo' : 'da dong'}]]</td>
+                <td>[[${item.address}]]</td>
+                <td th:text="${#dates.format(item.createDate, 'dd-MM-yyyy')}"></td>
+                <td>
+                    <a th:href="@{/admin/user/edit/{id}(id = ${item.staffID})}" class="btn btn-outline-primary">
+                        <i class="fa-solid fa-pen-to-square fa-2xl"></i>
+                    </a>
+                    &nbsp;&nbsp;
+                    <a th:href="@{/admin/user/delete/{id}(id=${item.staffID})}" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash fa-2xl"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${totalPages > 1}">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link"
+                       th:href="@{'/admin/user/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ' '}}">
+                        First
+                    </a>
+                </li>
+                <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" th:href="@{'/admin/user/page/' + (${currentPage - 1}) + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, totalPages)}" th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+                    <a class="page-link" th:href="@{'/admin/user/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
+                </li>
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" th:href="@{'/admin/user/page/' + (${currentPage + 1}) + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
+                </li>
+                <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+                    <a class="page-link" th:href="@{'/admin/user/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!--footer-->
+<div th:replace="fragments_Admin/fragment :: footer"></div>
+</body>
+</html>

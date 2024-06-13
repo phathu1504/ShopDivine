@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="danhmuc">
+    <div class="container">
+        <div class="row mt-4">
+            <h3 th:text="${category}"></h3>
+            <div class="row mt-4">
+                <div class="col-sm-3" th:each="sp : ${dsSp}">
+                    <a th:href="'/sp/' + ${sp.productID}"><img th:src="${sp.imageProduct}" class="d-block w-100 rounded"></a>
+                    <div class="caption">
+                        <a th:href="'/sp/' + ${sp.productID}" class="link" th:text="${sp.nameProduct}"></a>
+                        <p class="mt-2">
+                            <strong th:text="${sp.priceProduct} + 'đ'"></strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

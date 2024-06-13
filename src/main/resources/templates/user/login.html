@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .custom-border {
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <form class="p-4 custom-border" method="post" action="login">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <a href="#" style="text-decoration: none;" type="button">
+                        <label>Bạn quên mật khẩu?</label>
+                    </a>
+                    <a th:href="'/register'" style="text-decoration: none;" type="button" class="justify-content-end">
+                        <label>Đăng ký</label>
+                    </a>
+                </div>
+                <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    <br>
+                    <label th:text="${message}"></label>
+                </div>
+                <div class="mb-3 text-center">
+                    <label>Hoặc đăng nhập bằng</label><br>
+                    <img th:src="@{/img/google.svg}"> <img th:src="@{/img/facebook.svg}" class="mx-1">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
